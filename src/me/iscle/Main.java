@@ -51,7 +51,7 @@ public class Main {
             checksum = 0;
 
             for (int i = 0; i < 16; i++) {
-                int result = divide((address + i) & 0x3ff, (address + 1)>>10);
+                int result = divide((address + i) & 0x3ff, (address + 1) >> 10);
 
                 if (result > 99) {
                     data[i] = 0;
@@ -61,7 +61,7 @@ public class Main {
                 }
 
                 checksum = checksum + data[i];
-                System.out.println(String.valueOf((address + i) & 0x3ff) + " by " + String.valueOf((address + 1)>>10) + " = " + result);
+                System.out.println(String.valueOf((address + i) & 0x3ff) + " by " + String.valueOf((address + 1) >> 10) + " = " + result);
             }
 
             checksum = toCa2Byte(byteCount + addAddress(address) + recordType + checksum);
@@ -95,8 +95,6 @@ public class Main {
             hexString.insert(0, "0");
             difference--;
         }
-
-        hexString.trimToSize();
 
         return hexString.toString();
     }
