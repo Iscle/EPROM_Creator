@@ -39,46 +39,111 @@ public class Main {
 
     private static void fillArray(ArrayList<String> array) {
         int byteCount = 16;
-        int address = 0;
         int recordType = 0;
         int[] data = new int[16];
         int checksum = 0;
 
         double totalLength = Math.pow(2, 15);
-        double combinations = Math.pow(2, 14);
 
-        while (address < combinations) {
+        for (int address = 0; address < totalLength; address += 16) {
             checksum = 0;
 
-            for (int i = 0; i < 16; i++) {
-                int result = divide((address + i) & 0x3ff, (address + 1) >> 10);
+            for (int j = 0; j < 16; j++) {
+                int result;
+                data[j] = 0;
+
+                result = divide((address + j) & 0x3ff, ((address + j) >> 10) & 0xf);
 
                 if (result > 99) {
-                    data[i] = 0;
                     result = 0;
-                } else {
-                    data[i] = result;
                 }
 
-                checksum = checksum + data[i];
-                System.out.println(String.valueOf((address + i) & 0x3ff) + " by " + String.valueOf((address + 1) >> 10) + " = " + result);
+                if (getBit(address + j, 14) == 0) {
+                    result = result % 10;
+                } else {
+                    result = result / 10;
+                }
+
+                switch (result) {
+                    case 0:
+                        data[j] = setBit(data[j], 0); // a
+                        data[j] = setBit(data[j], 1); // b
+                        data[j] = setBit(data[j], 2); // c
+                        data[j] = setBit(data[j], 3); // d
+                        data[j] = setBit(data[j], 4); // e
+                        data[j] = setBit(data[j], 5); // f
+                        break;
+                    case 1:
+                        data[j] = setBit(data[j], 1); // b
+                        data[j] = setBit(data[j], 2); // c
+                        break;
+                    case 2:
+                        data[j] = setBit(data[j], 0); // a
+                        data[j] = setBit(data[j], 1); // b
+                        data[j] = setBit(data[j], 3); // d
+                        data[j] = setBit(data[j], 4); // e
+                        data[j] = setBit(data[j], 6); // g
+                        break;
+                    case 3:
+                        data[j] = setBit(data[j], 0); // a
+                        data[j] = setBit(data[j], 1); // b
+                        data[j] = setBit(data[j], 2); // c
+                        data[j] = setBit(data[j], 3); // d
+                        data[j] = setBit(data[j], 6); // g
+                        break;
+                    case 4:
+                        data[j] = setBit(data[j], 1); // b
+                        data[j] = setBit(data[j], 2); // c
+                        data[j] = setBit(data[j], 5); // f
+                        data[j] = setBit(data[j], 6); // g
+                        break;
+                    case 5:
+                        data[j] = setBit(data[j], 0); // a
+                        data[j] = setBit(data[j], 2); // c
+                        data[j] = setBit(data[j], 3); // d
+                        data[j] = setBit(data[j], 5); // f
+                        data[j] = setBit(data[j], 6); // g
+                        break;
+                    case 6:
+                        data[j] = setBit(data[j], 0); // a
+                        data[j] = setBit(data[j], 2); // c
+                        data[j] = setBit(data[j], 3); // d
+                        data[j] = setBit(data[j], 4); // e
+                        data[j] = setBit(data[j], 5); // f
+                        data[j] = setBit(data[j], 6); // g
+                        break;
+                    case 7:
+                        data[j] = setBit(data[j], 0); // a
+                        data[j] = setBit(data[j], 1); // b
+                        data[j] = setBit(data[j], 2); // c
+                        break;
+                    case 8:
+                        data[j] = setBit(data[j], 0); // a
+                        data[j] = setBit(data[j], 1); // b
+                        data[j] = setBit(data[j], 2); // c
+                        data[j] = setBit(data[j], 3); // d
+                        data[j] = setBit(data[j], 4); // e
+                        data[j] = setBit(data[j], 5); // f
+                        data[j] = setBit(data[j], 6); // g
+                        break;
+                    case 9:
+                        data[j] = setBit(data[j], 0); // a
+                        data[j] = setBit(data[j], 1); // b
+                        data[j] = setBit(data[j], 2); // c
+                        data[j] = setBit(data[j], 3); // d
+                        data[j] = setBit(data[j], 5); // f
+                        data[j] = setBit(data[j], 6); // g
+                        break;
+                }
+
+                data[j] = (~data[j]) & 0xff;
+
+                checksum = checksum + data[j];
+                System.out.println(String.valueOf((address + j) & 0x3ff) + " / " + String.valueOf(((address + j) >> 10) & 0xf) + " = " + result);
             }
 
             checksum = toCa2Byte(byteCount + addAddress(address) + recordType + checksum);
             array.add(":" + toHexString(byteCount, 2) + toHexString(address, 4) + toHexString(recordType, 2) + dataToString(data) + toHexString(checksum, 2));
-
-            address += 16;
-        }
-
-        for (int i = 0; i < 16; i++) {
-            data[i] = 0;
-        }
-
-        while (address < totalLength) {
-            checksum = toCa2Byte(byteCount + addAddress(address) + recordType);
-            array.add(":" + toHexString(byteCount, 2) + toHexString(address, 4) + toHexString(recordType, 2) + dataToString(data) + toHexString(checksum, 2));
-
-            address += 16;
         }
 
         array.add(":00000001FF"); // End of file
@@ -119,5 +184,13 @@ public class Main {
 
     private static int addAddress(int address) {
         return address / 256 + address % 256;
+    }
+
+    private static int getBit(int variable, int bit) {
+        return (variable >> bit) & 0b1;
+    }
+
+    private static int setBit(int variable, int bit) {
+        return variable | (1 << bit);
     }
 }
