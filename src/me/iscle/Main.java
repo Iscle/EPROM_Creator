@@ -52,7 +52,7 @@ public class Main {
                 int result;
                 data[j] = 0;
 
-                result = divide((address + j) & 0x3ff, ((address + j) >> 10) & 0xf);
+                result = (address + j) & 0x3ff;
 
                 if (result > 99) {
                     result = 0;
@@ -166,10 +166,6 @@ public class Main {
 
     private static int toCa2Byte(int number) {
         return ((~number) + 1) & 0xFF;
-    }
-
-    private static int divide(int number, int by) {
-        return by == 0 ? 0 : number / by;
     }
 
     private static String dataToString(int[] data) {
