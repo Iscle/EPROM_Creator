@@ -58,10 +58,18 @@ public class Main {
                     result = 0;
                 }
 
-                if (getBit(address + j, 14) == 0) {
-                    result = result % 10;
+                if (getBit(address + j, 13) == 0) {
+                    if (getBit(address + j, 14) == 0) {
+                        result = result % 10;
+                    } else {
+                        result = result / 10;
+                    }
                 } else {
-                    result = result / 10;
+                    if (getBit(address + j, 14) == 0) {
+                        result = result % 16;
+                    } else {
+                        result = result / 16;
+                    }
                 }
 
                 switch (result) {
@@ -72,16 +80,19 @@ public class Main {
                         data[j] = setBit(data[j], 3); // d
                         data[j] = setBit(data[j], 4); // e
                         data[j] = setBit(data[j], 5); // f
+                        data[j] = setBit(data[j], 6); // g
+                        data[j] = setBit(data[j], 7); // h
                         break;
                     case 1:
-                        data[j] = setBit(data[j], 1); // b
                         data[j] = setBit(data[j], 2); // c
+                        data[j] = setBit(data[j], 3); // d
                         break;
                     case 2:
                         data[j] = setBit(data[j], 0); // a
                         data[j] = setBit(data[j], 1); // b
-                        data[j] = setBit(data[j], 3); // d
+                        data[j] = setBit(data[j], 2); // c
                         data[j] = setBit(data[j], 4); // e
+                        data[j] = setBit(data[j], 5); // f
                         data[j] = setBit(data[j], 6); // g
                         break;
                     case 3:
@@ -89,33 +100,35 @@ public class Main {
                         data[j] = setBit(data[j], 1); // b
                         data[j] = setBit(data[j], 2); // c
                         data[j] = setBit(data[j], 3); // d
-                        data[j] = setBit(data[j], 6); // g
+                        data[j] = setBit(data[j], 4); // e
+                        data[j] = setBit(data[j], 5); // f
                         break;
                     case 4:
-                        data[j] = setBit(data[j], 1); // b
                         data[j] = setBit(data[j], 2); // c
-                        data[j] = setBit(data[j], 5); // f
-                        data[j] = setBit(data[j], 6); // g
+                        data[j] = setBit(data[j], 3); // d
+                        data[j] = setBit(data[j], 7); // h
                         break;
                     case 5:
                         data[j] = setBit(data[j], 0); // a
-                        data[j] = setBit(data[j], 2); // c
+                        data[j] = setBit(data[j], 1); // b
                         data[j] = setBit(data[j], 3); // d
+                        data[j] = setBit(data[j], 4); // e
                         data[j] = setBit(data[j], 5); // f
-                        data[j] = setBit(data[j], 6); // g
                         break;
                     case 6:
                         data[j] = setBit(data[j], 0); // a
-                        data[j] = setBit(data[j], 2); // c
+                        data[j] = setBit(data[j], 1); // b
                         data[j] = setBit(data[j], 3); // d
                         data[j] = setBit(data[j], 4); // e
                         data[j] = setBit(data[j], 5); // f
                         data[j] = setBit(data[j], 6); // g
+                        data[j] = setBit(data[j], 7); // h
                         break;
                     case 7:
                         data[j] = setBit(data[j], 0); // a
                         data[j] = setBit(data[j], 1); // b
                         data[j] = setBit(data[j], 2); // c
+                        data[j] = setBit(data[j], 3); // d
                         break;
                     case 8:
                         data[j] = setBit(data[j], 0); // a
@@ -125,15 +138,63 @@ public class Main {
                         data[j] = setBit(data[j], 4); // e
                         data[j] = setBit(data[j], 5); // f
                         data[j] = setBit(data[j], 6); // g
+                        data[j] = setBit(data[j], 7); // h
                         break;
                     case 9:
                         data[j] = setBit(data[j], 0); // a
                         data[j] = setBit(data[j], 1); // b
                         data[j] = setBit(data[j], 2); // c
                         data[j] = setBit(data[j], 3); // d
+                        data[j] = setBit(data[j], 4); // e
+                        data[j] = setBit(data[j], 5); // f
+                        break;
+                    case 10:
+                        data[j] = setBit(data[j], 0); // a
+                        data[j] = setBit(data[j], 1); // b
+                        data[j] = setBit(data[j], 2); // c
+                        data[j] = setBit(data[j], 3); // d
+                        data[j] = setBit(data[j], 6); // g
+                        data[j] = setBit(data[j], 7); // h
+                        break;
+                    case 11:
+                        data[j] = setBit(data[j], 0); // a
+                        data[j] = setBit(data[j], 1); // b
+                        data[j] = setBit(data[j], 2); // c
+                        data[j] = setBit(data[j], 3); // d
+                        data[j] = setBit(data[j], 4); // e
+                        data[j] = setBit(data[j], 5); // f
+                        break;
+                    case 12:
+                        data[j] = setBit(data[j], 0); // a
+                        data[j] = setBit(data[j], 1); // b
+                        data[j] = setBit(data[j], 4); // e
                         data[j] = setBit(data[j], 5); // f
                         data[j] = setBit(data[j], 6); // g
+                        data[j] = setBit(data[j], 7); // h
                         break;
+                    case 13:
+                        data[j] = setBit(data[j], 0); // a
+                        data[j] = setBit(data[j], 1); // b
+                        data[j] = setBit(data[j], 2); // c
+                        data[j] = setBit(data[j], 3); // d
+                        data[j] = setBit(data[j], 4); // e
+                        data[j] = setBit(data[j], 5); // f
+                        break;
+                    case 14:
+                        data[j] = setBit(data[j], 0); // a
+                        data[j] = setBit(data[j], 1); // b
+                        data[j] = setBit(data[j], 4); // e
+                        data[j] = setBit(data[j], 5); // f
+                        data[j] = setBit(data[j], 6); // g
+                        data[j] = setBit(data[j], 7); // h
+                        break;
+                    case 15:
+                        data[j] = setBit(data[j], 0); // a
+                        data[j] = setBit(data[j], 1); // b
+                        data[j] = setBit(data[j], 6); // g
+                        data[j] = setBit(data[j], 7); // h
+                        break;
+
                 }
 
                 data[j] = (~data[j]) & 0xff;
