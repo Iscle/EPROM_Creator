@@ -74,10 +74,11 @@ public class Main {
 
                 switch (result) {
                     case 0:
-
+                        data[j] = setBit(data[j], 2); // n
+                        data[j] = setBit(data[j], 6); // t
                         break;
                     case 1:
-
+                        data[j] = setBit(data[j], 2); // n
                         break;
                     case 2:
                         data[j] = setBit(data[j], 3); // p
@@ -99,19 +100,14 @@ public class Main {
                         data[j] = setBit(data[j], 7); // u
                         break;
                     case 7:
+
                         break;
                     case 8:
                         data[j] = setBit(data[j], 3); // p
                         data[j] = setBit(data[j], 7); // u
                         break;
                     case 9:
-                        data[j] = setBit(data[j], 0); // k
-                        data[j] = setBit(data[j], 1); // m
-                        data[j] = setBit(data[j], 2); // n
                         data[j] = setBit(data[j], 3); // p
-                        data[j] = setBit(data[j], 4); // r
-                        data[j] = setBit(data[j], 5); // s
-                        data[j] = setBit(data[j], 6); // t
                         data[j] = setBit(data[j], 7); // u
                         break;
                     case 10:
@@ -119,9 +115,12 @@ public class Main {
                         data[j] = setBit(data[j], 7); // u
                         break;
                     case 11:
+                        data[j] = setBit(data[j], 1); // m
                         data[j] = setBit(data[j], 3); // p
+                        data[j] = setBit(data[j], 5); // s
                         break;
                     case 12:
+
                         break;
                     case 13:
                         data[j] = setBit(data[j], 1); // m
