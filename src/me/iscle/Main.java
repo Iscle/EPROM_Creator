@@ -114,6 +114,7 @@ public class Main {
                         data[j] = setBit(data[j], 3); // d
                         data[j] = setBit(data[j], 4); // e
                         data[j] = setBit(data[j], 5); // f
+                        data[j] = setBit(data[j], 7); // h
                         break;
                     case 6:
                         data[j] = setBit(data[j], 0); // a
@@ -147,6 +148,7 @@ public class Main {
                         data[j] = setBit(data[j], 3); // d
                         data[j] = setBit(data[j], 4); // e
                         data[j] = setBit(data[j], 5); // f
+                        data[j] = setBit(data[j], 7); // h
                         break;
                     case 10:
                         data[j] = setBit(data[j], 0); // a
